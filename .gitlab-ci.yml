@@ -2,10 +2,10 @@ include:
   - local: 'ci/lint.yml'
   - local: 'ci/scan.yml'
   - local: 'ci/test.yml'
-  # - local: 'ci/deploy.yml'
+  - local: 'ci/deploy.yml'
 
 stages:
   - lint
   - scan
   - test
-  # - deploy
+  - deploy
