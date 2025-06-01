@@ -52,8 +52,6 @@ make docker-build
 make docker-run
 ```
 
----
-
 ## 🛡️ Pre-commit Hooks
 
 Pre-commit hooks catch code style, commit message, and security issues early—saving you from failed CI checks later.
@@ -71,7 +69,6 @@ make install-hooks
 
 This workflow enforces clean code and a smooth CI/CD process before anything hits GitHub.
 
----
 
 ## 🧪 Testing & Quality
 

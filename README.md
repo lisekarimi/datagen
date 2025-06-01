@@ -10,9 +10,9 @@ sdk: docker
 
 Generate realistic synthetic datasets by simply describing what you need.
 
-[🚀 **Try the Live Demo**](https://huggingface.co/spaces/lisekarimi/snapr) 
+[🚀 **Try the Live Demo**](https://huggingface.co/spaces/lisekarimi/datagen) 
 
-<img src="https://gitlab.com/lisekarimi/datagen/-/raw/main/assets/screenshot.png" alt="DataGen interface" width="450">
+<img src="https://github.com/lisekarimi/datagen/blob/main/assets/screenshot.png?raw=true" alt="DataGen interface" width="450">
 
 ## ✨ What DataGen Does
 
@@ -53,7 +53,7 @@ make run
 make ui
 ```
 
-*For complete setup instructions, commands, and development guidelines, see [docs/dev.md](https://gitlab.com/lisekarimi/datagen/-/blob/main/docs/dev.md)*
+*For complete setup instructions, commands, and development guidelines, see [docs/dev.md](https://github.com/lisekarimi/datagen/blob/main/docs/dev.md)*
 
 ## 🧑‍💻 How to Use
 
@@ -67,7 +67,7 @@ make ui
 
 DataGen maintains high standards with comprehensive test coverage, automated security scanning, and code quality enforcement.
 
-*For CI/CD setup and technical details, see [docs/cicd.md](https://gitlab.com/lisekarimi/datagen/-/blob/main/docs/cicd.md)*
+*For CI/CD setup and technical details, see [docs/cicd.md](https://github.com/lisekarimi/datagen/blob/main/docs/cicd.md)*
 
 ## 📝 Notes
 - Generated files are automatically cleaned up after 5 minutes
