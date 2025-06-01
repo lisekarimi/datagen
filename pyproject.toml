@@ -1,0 +1,35 @@
+[project]
+name = "datagen"
+version = "0.1.0"
+description = "AI-powered platform for generating synthetic datasets"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic==0.49.0",
+    "gradio",
+    "numpy>=2.2.6",
+    "openai==1.65.5",
+    "pandas>=2.2.3",
+    "pyarrow>=20.0.0",
+    "python-dotenv==1.0.1",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+filterwarnings = [
+    "ignore::DeprecationWarning:websockets.legacy",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings  
+    "F",   # Pyflakes
+    "D",   # pydocstyle (docstrings)
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+]
+ignore = ["D104"]  # Missing docstring in public package (__init__.py)
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"

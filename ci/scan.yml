@@ -1,0 +1,10 @@
+stages:
+  - scan
+
+scan:
+  stage: scan
+  image:
+    name: zricethezav/gitleaks:latest
+    entrypoint: [""]
+  script:
+    - gitleaks detect --verbose --source .

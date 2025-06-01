@@ -1,0 +1,54 @@
+deploy_to_huggingface:
+  stage: deploy
+  image: alpine:latest
+  variables:
+    DEPLOY_DIR: "hf_deploy"
+    GIT_STRATEGY: clone
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "web"
+  needs: [lint, scan, test]
+  before_script:
+    - apk add --no-cache git findutils grep sed
+    - echo "Extracting project information..."
+    - |
+      PROJECT_NAME=$(grep "^name = " pyproject.toml | sed 's/name = "\(.*\)"/\1/')
+      VERSION=$(grep "^version = " pyproject.toml | sed 's/version = "\(.*\)"/\1/')
+      echo "Starting deployment for $PROJECT_NAME v$VERSION"
+  script:
+    - echo "Preparing deployment folder at $DEPLOY_DIR..."
+    - rm -rf "$DEPLOY_DIR"
+    - mkdir -p "$DEPLOY_DIR"
+    - echo "=== DEBUG HF_USERNAME ==="
+    - echo "GIT_USER_EMAIL='${GIT_USER_EMAIL}'"
+    - REPO_URL="https://${HF_USERNAME}:${HF_TOKEN}@huggingface.co/spaces/${HF_USERNAME}/${PROJECT_NAME}"
+    - echo "Repository URL configured"
+    - |
+      if git ls-remote "$REPO_URL" >/dev/null 2>&1; then
+        echo "Repository exists, cloning..."
+        git clone "$REPO_URL" "$DEPLOY_DIR"
+        cd "$DEPLOY_DIR"
+        find . -mindepth 1 -not -path "./.git*" -exec rm -rf {} +
+        cd ..
+      else
+        echo "No repository found, initializing new one..."
+        cd "$DEPLOY_DIR"
+        git init -b main
+        git remote add origin "$REPO_URL"
+        cd ..
+      fi
+    - echo "Copying project files..."
+    - cp Dockerfile "$DEPLOY_DIR/"
+    - cp README.md "$DEPLOY_DIR/"
+    - cp uv.lock "$DEPLOY_DIR/"
+    - cp pyproject.toml "$DEPLOY_DIR/"
+    - mkdir -p "$DEPLOY_DIR/assets"
+    - cp assets/styles.css "$DEPLOY_DIR/assets/"
+    - cp -r src "$DEPLOY_DIR/"
+    - cp main.py "$DEPLOY_DIR/"
+    - cd "$DEPLOY_DIR"
+    - git config user.name "${GIT_USERNAME}"
+    - git config user.email "${GIT_USER_EMAIL}"
+    - echo "Committing and pushing to Hugging Face..."
+    - git add .
+    - git commit -m "Deploy version ${VERSION}" || echo "No changes to commit"
+    - git push origin main

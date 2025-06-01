@@ -1,0 +1,28 @@
+stages:
+  - test
+
+test:
+  stage: test
+  image: python:3.11-slim
+  variables:
+    OPENAI_API_KEY: "dummy-key-for-testing"
+    ANTHROPIC_API_KEY: "dummy-key-for-testing"
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push" && ($CI_COMMIT_BRANCH =~ /^feature\/.*/ || $CI_COMMIT_BRANCH == "dev" || $CI_COMMIT_BRANCH == "main")
+      changes:
+        - "**/*.py"
+        - "pyproject.toml"
+        - "uv.lock"
+        - ".gitlab-ci.yml"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      changes:
+        - "**/*.py"
+        - "pyproject.toml"
+        - "uv.lock"
+        - ".gitlab-ci.yml"
+    - if: $CI_PIPELINE_SOURCE == "web"
+  needs: [lint, scan]
+  before_script:
+    - pip install uv
+  script:
+    - PYTHONPATH=$PWD uv run --isolated --with pytest pytest tests

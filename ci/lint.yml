@@ -1,0 +1,25 @@
+stages:
+  - lint
+
+lint:
+  stage: lint
+  image: python:3.11-slim
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push" && ($CI_COMMIT_BRANCH =~ /^feature\/.*/ || $CI_COMMIT_BRANCH == "dev" || $CI_COMMIT_BRANCH == "main")
+      changes:
+        - "**/*.py"
+        - "pyproject.toml"
+        - "uv.lock"
+        - ".gitlab-ci.yml"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      changes:
+        - "**/*.py"
+        - "pyproject.toml"
+        - "uv.lock"
+        - ".gitlab-ci.yml"
+    - if: $CI_PIPELINE_SOURCE == "web"
+  before_script:
+    - pip install uv
+  script:
+    - uvx ruff check .
+    - uvx ruff format --check .

@@ -1,0 +1,237 @@
+
+html, body, #app, body > div, .gradio-container {
+    background-color: #0b0e18 !important;  /* dark blue */
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#app-container {
+    background-color: #1d3451 !important;  
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4);
+    max-width: 800px;
+    width: 100%;
+    color: white;
+}
+
+#app-container h4,
+#app-container p,
+#app-container ol,
+#app-container li,
+#app-container strong {
+    font-size: 16px;
+    line-height: 1.6;
+    color: white !important; 
+}
+
+#app-title {
+    font-size: 42px;
+    background: linear-gradient(to left, #ff416c, #ff4b2b);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 800;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+#app-subtitle {
+    font-size: 24px;
+    background: linear-gradient(to left, #ff416c, #ff4b2b);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 600;
+    margin-top: 0;
+    text-align: center;
+}
+
+#intro-text {
+    font-size: 16px;
+    color: white !important; 
+    margin-top: 20px;
+    line-height: 1.6;
+}
+
+#learn-more-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.button-link {
+    background: linear-gradient(to left, #ff416c, #ff4b2b);
+    color: white !important; 
+    padding: 10px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: opacity 0.3s;
+}
+
+.button-link:hover {
+    opacity: 0.85;
+}
+
+#input-container {
+    background-color: #1f2937;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.label-box label {
+    background-color: #1f2937;
+    padding: 4px 10px;
+    border-radius: 8px;
+    display: inline-block;
+    margin-bottom: 6px;
+}
+
+.label-box span {
+    color: white !important;
+}
+
+.label-box {
+    background-color: #1f2937;
+    color: white; 
+    padding: 4px 10px;
+    border-radius: 8px;
+    display: inline-block;
+}
+
+#input-container > div {
+    background: #1f2937 !important;
+    background-color: #1f2937 !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 10px !important;
+    margin: 0 !important;
+}
+.row-spacer {
+    margin-top: 24px !important; 
+}
+
+.column-gap {
+  gap: 16px; 
+}
+
+textarea, input[type="text"] {
+    background-color: #374151 !important;
+    color: white !important;
+}
+
+#custom-dropdown .wrap {
+    background-color: #374151 !important;
+    border-radius: 6px;
+}
+
+input[role="listbox"] {
+    color: white !important;
+    background-color: #374151 !important;
+}
+.dropdown-arrow {
+    color: white !important;
+}
+
+ul[role="listbox"] {
+    background-color: #111827 !important;  /* dark navy */
+    color: white !important;
+    border-radius: 6px;
+    padding: 4px 0;
+}
+
+ul[role="listbox"] li {
+    color: white !important;
+    padding: 8px 12px;
+}
+
+ul[role="listbox"] li:hover {
+    background-color: #1f2937 !important;  /* slightly lighter hover */
+}
+
+ul[role="listbox"] li[aria-selected="true"] {
+    background-color: #111827 !important;  /* same dark as others */
+    color: white !important;
+}
+
+input[type="number"] {
+    background-color: #374151;
+    color: white !important; 
+}
+
+#business-problem-box {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    width: 100% !important;
+}
+
+#business-problem-box textarea::placeholder {
+    color: #9ca3af !important; /* Tailwind's "gray-400" */
+}
+
+
+#run-btn {
+    background: linear-gradient(to left, #ff416c, #ff4b2b);
+    color: white !important; 
+    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#run-btn:hover {
+    filter: brightness(1.1);
+}
+
+#download-box {
+    background-color: #1f2937;
+    border: 1px solid #3b3b3b;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 16px;
+    font-weight: 500;
+}
+
+#download-box a {
+    color: #00c3ff !important;
+    text-decoration: underline;
+    font-weight: bold;
+}
+#download-box td.filename {
+    color: rgb(255, 255, 255) !important;
+}
+
+#download-box .file-preview-holder,
+#download-box .file-preview,
+#download-box table,
+#download-box tr,
+#download-box td {
+    background-color: #1f2937 !important;
+}
+
+/* #download-box label {
+    background-color: #1f2937 !important;
+    color: white !important;
+    font-weight: bold;
+} */
+#download-box > label {
+    display: none !important;
+}
+
+
+/* ==== Version ==== */
+.version-banner {
+    text-align: center;
+    font-size: 0.9em;
+}
