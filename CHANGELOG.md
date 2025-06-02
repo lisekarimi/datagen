@@ -1,6 +1,6 @@
-## Changelog for 0.1.0
+## [0.1.0]
 
-### Added
+### ✨ Added
 - Generate realistic synthetic datasets from natural language prompts
 - Support for two LLMs: GPT-4o-mini and Claude 3.5 Sonnet
 - Multiple output formats: JSON, CSV, Parquet, and Markdown
