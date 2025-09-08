@@ -11,7 +11,7 @@ short_description: AI-powered synthetic data generator
 
 Generate realistic synthetic datasets by simply describing what you need.
 
-[🚀 **Try the Live Demo**](https://huggingface.co/spaces/lisekarimi/datagen) 
+[🚀 **Try the Live Demo**](https://huggingface.co/spaces/lisekarimi/datagen)
 
 <img src="https://github.com/lisekarimi/datagen/blob/main/assets/screenshot.png?raw=true" alt="DataGen interface" width="450">
 
@@ -26,10 +26,14 @@ DataGen transforms simple descriptions into structured datasets using AI. Perfec
 - **AI-powered:** Uses GPT and Claude models
 - **Instant download** with clean, ready-to-use datasets
 
+To understand the full workflow from user input to file output, see the [architecture section](https://github.com/lisekarimi/datagen/wiki/architecture).
+
+
 ## 🚀 Quick Start
 
 ### Prerequisites
 - Python 3.11+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 - [uv package manager](https://docs.astral.sh/uv/getting-started/installation/)
 
 ### Installation
@@ -54,28 +58,27 @@ make run
 make ui
 ```
 
-*For complete setup instructions, commands, and development guidelines, see [docs/dev.md](https://github.com/lisekarimi/datagen/blob/main/docs/dev.md)*
+*For complete setup instructions, commands, and development guidelines, see [the Wiki Page](https://github.com/lisekarimi/datagen/wiki/dev).*
 
 ## 🧑‍💻 How to Use
 
 1. **Describe your data:** "Customer purchase history with demographics"
-2. **Choose format:** CSV, JSON, Parquet, or Markdown  
+2. **Choose format:** CSV, JSON, Parquet, or Markdown
 3. **Select AI model:** GPT or Claude
 4. **Set sample size:** Number of records to generate
-5. **Generate & download** your dataset 
+5. **Generate & download** your dataset
 
 ## 🛡️ Quality & Security
 
 DataGen maintains high standards with comprehensive test coverage, automated security scanning, and code quality enforcement.
 
-*For CI/CD setup and technical details, see [docs/cicd.md](https://github.com/lisekarimi/datagen/blob/main/docs/cicd.md)*
+*For CI/CD setup and technical details, see [the Wiki Page](https://github.com/lisekarimi/datagen/wiki/cicd).*
 
 ## 📝 Notes
 - Generated files are automatically cleaned up after 5 minutes
 - Supports 10-1000 samples per dataset
 - JSON output includes proper indentation for readability
 - Cross-platform compatibility (Windows, macOS, Linux)
-
 
 ## 📄 License
 
