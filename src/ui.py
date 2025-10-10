@@ -61,7 +61,7 @@ def build_ui(css_path="assets/styles.css"):
 
                 learn_more_html = """
                     <div id="learn-more-button">
-                        <a href="/docs/"
+                        <a href="https://datagen.lisekarimi.com/docs"
                            class="button-link">Documentation</a>
                     </div>
                     """
@@ -175,7 +175,8 @@ def build_ui(css_path="assets/styles.css"):
             # Floating chat button
             gr.HTML(
                 """
-                <a href="/docs/" class="floating-chat-btn" target="_blank">
+                <a href="https://datagen.lisekarimi.com/docs" class="floating-chat-btn"
+                    target="_blank">
                     💬 Chat with AI Assistant
                 </a>
             """
