@@ -1,17 +1,8 @@
----
-title: DataGen
-emoji: 🧬
-colorFrom: indigo
-colorTo: pink
-sdk: docker
-short_description: AI-powered synthetic data generator
----
-
 # 🧬 DataGen: AI-Powered Synthetic Data Generator
 
 Generate realistic synthetic datasets by simply describing what you need.
 
-[🚀 **Try the Live Demo**](https://huggingface.co/spaces/lisekarimi/datagen)
+[🚀 **Try the Live Demo**](https://datagen.lisekarimi.com)
 
 <img src="https://github.com/lisekarimi/datagen/blob/main/assets/screenshot.png?raw=true" alt="DataGen interface" width="450">
 
@@ -26,7 +17,7 @@ DataGen transforms simple descriptions into structured datasets using AI. Perfec
 - **AI-powered:** Uses GPT and Claude models
 - **Instant download** with clean, ready-to-use datasets
 
-To understand the full workflow from user input to file output, see the [architecture section](https://github.com/lisekarimi/datagen/wiki/architecture).
+To understand the full workflow from user input to file output, see the [architecture section](https://datagen.lisekarimi.com/docs/#/archi).
 
 
 ## 🚀 Quick Start
@@ -58,7 +49,7 @@ make run
 make ui
 ```
 
-*For complete setup instructions, commands, and development guidelines, see [the Wiki Page](https://github.com/lisekarimi/datagen/wiki/dev).*
+*For complete setup instructions, commands, and development guidelines, see [the Docs Page](https://datagen.lisekarimi.com/docs).*
 
 ## 🧑‍💻 How to Use
 
@@ -72,7 +63,7 @@ make ui
 
 DataGen maintains high standards with comprehensive test coverage, automated security scanning, and code quality enforcement.
 
-*For CI/CD setup and technical details, see [the Wiki Page](https://github.com/lisekarimi/datagen/wiki/cicd).*
+*For CI/CD setup and technical details, see [the docs Page](https://datagen.lisekarimi.com/docs/#/cicd).*
 
 ## 📝 Notes
 - Generated files are automatically cleaned up after 5 minutes
