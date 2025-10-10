@@ -1,6 +1,6 @@
 [project]
 name = "datagen"
-version = "0.1.0"
+version = "0.2.0"
 description = "AI-powered platform for generating synthetic datasets"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -23,7 +23,7 @@ filterwarnings = [
 [tool.ruff.lint]
 select = [
     "E",   # pycodestyle errors
-    "W",   # pycodestyle warnings  
+    "W",   # pycodestyle warnings
     "F",   # Pyflakes
     "D",   # pydocstyle (docstrings)
     "UP",  # pyupgrade
