@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Datagen Docs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Datagen Documentation">
+  <meta name="author" content="Lise Karimi" />
+
+  <!-- 💊 Emoji Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧬</text></svg>">
+
+  <!-- Light + Dark themes -->
+  <link id="theme-light" rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/docsify-themeable/dist/css/theme-simple.css">
+  <link id="theme-dark" rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/docsify-themeable/dist/css/theme-simple-dark.css" disabled>
+
+  <style>
+    #themeToggle {
+      position: fixed;
+      right: 16px;
+      top: 58px;
+      z-index: 9999;
+      padding: 6px 10px;
+      border-radius: 20px;
+      border: 1px solid #ddd;
+      background: #fff;
+      cursor: pointer;
+      font-size: 14px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    }
+    #themeToggle:hover { opacity: 0.85; }
+    body[data-theme="dark"] #themeToggle {
+      background: #333;
+      border-color: #555;
+      color: #fff;
+    }
+    @media (max-width: 768px){
+      #themeToggle { right: 12px; top: 52px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <button id="themeToggle" title="Toggle theme">🌙</button>
+
+  <script>
+    window.$docsify = {
+      name: 'Datagen Docs',
+      repo: 'https://github.com/lisekarimi/datagen',
+      loadSidebar: true,
+      loadNavbar: true,
+      subMaxLevel: 2,
+      search: {
+        maxAge: 86400000,
+        paths: 'auto',
+        placeholder: '🔍 Search',
+        noData: 'No results found!',
+        depth: 6,
+        hideOtherSidebarContent: false,
+      },
+      pagination: {
+        previousText: 'Previous',
+        nextText: 'Next',
+        crossChapter: true,
+        crossChapterText: true,
+      },
+      copyCode: {
+        buttonText: 'Copy',
+        errorText: 'Error',
+        successText: 'Copied!'
+      },
+      plugins: [
+        function (hook) {
+          hook.doneEach(function () {
+            document.title = 'Datagen Docs';
+          });
+        }
+      ]
+    };
+
+    // Theme toggle
+    (function () {
+      const KEY = 'docsify-theme';
+      const light = document.getElementById('theme-light');
+      const dark  = document.getElementById('theme-dark');
+      const saved = localStorage.getItem(KEY);
+      const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
+      const toggleBtn = document.getElementById('themeToggle');
+
+      function apply(theme){
+        dark.disabled  = theme !== 'dark';
+        light.disabled = theme === 'dark';
+        localStorage.setItem(KEY, theme);
+        toggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+        document.body.setAttribute('data-theme', theme);
+      }
+
+      apply(saved || (prefersDark ? 'dark' : 'light'));
+      toggleBtn.onclick = () => apply(dark.disabled ? 'dark' : 'light');
+    })();
+  </script>
+
+  <!-- Docsify core + plugins -->
+
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code/dist/docsify-copy-code.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
+  <!-- Language highlighting -->
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-python.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-yaml.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-json.min.js"></script>
+  <!-- PageBotAI Chatbot - Start -->
+  <script src="static/js/chatbot.js"></script>
+  <!-- PageBotAI Chatbot - End -->
+</body>
+</html>

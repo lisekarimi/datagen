@@ -3,14 +3,16 @@
 # =====================================
 
 # Read from pyproject.toml using grep (works on all platforms)
-PROJECT_NAME = $(shell python -c "import re; print(re.search('name = \"(.*)\"', open('pyproject.toml').read()).group(1))")
-VERSION = $(shell python -c "import re; print(re.search('version = \"(.*)\"', open('pyproject.toml').read()).group(1))")
+PROJECT_NAME = $(shell python3 -c "import re; print(re.search('name = \"(.*)\"', open('pyproject.toml').read()).group(1))")
+VERSION = $(shell python3 -c "import re; print(re.search('version = \"(.*)\"', open('pyproject.toml').read()).group(1))")
 
+# Configuration
 include .env
 export DOCKER_USERNAME
 DOCKER_IMAGE = $(DOCKER_USERNAME)/$(PROJECT_NAME)
 TAG = $(VERSION)
 CONTAINER_NAME = $(PROJECT_NAME)-container
+PORT = 7860
 
 
 # =====================================
@@ -26,7 +28,7 @@ CONTAINER_NAME = $(PROJECT_NAME)-container
 activate:	## Activate the virtual environment
 	@echo "To activate the virtual environment, run:"
 	@echo "  .\.venv\Scripts\activate  (Windows)"
-	@echo "  source .venv/bin/activate   (Mac/Linux)"	
+	@echo "  source .venv/bin/activate   (Mac/Linux)"
 
 
 # =======================
@@ -66,26 +68,38 @@ ui:	## Run the UI dev server with hot reloading
 # 🐳 Docker Commands
 # =======================
 
-docker-build: ## Build the Docker image for development
+build: ## Build the Docker image for development
 	docker build -t $(DOCKER_IMAGE):$(TAG) .
 
-docker-ls: ## List files in Docker image
+ls: ## List files in Docker image
 	docker run --rm $(DOCKER_IMAGE):$(TAG) ls -la /app
 
 # Workflow: Edit code → Ctrl+C → Run 'make docker-run' again to see changes
-docker-run:	## Run development container with live code changes (no rebuild needed)
-	docker run --rm \
+run:	## Run development container with live code changes (no rebuild needed)
+	docker run --rm -d \
 	--name $(CONTAINER_NAME) \
 	--env-file .env \
-	-p 7860:7860 \
+	-p $(PORT):$(PORT) \
 	-v $(CURDIR):/app \
 	-w /app \
 	$(DOCKER_IMAGE):$(TAG)
+	@echo "🚀 Application is running in background at http://localhost:$(PORT)"
 
-docker-prod:	## Production run
-	docker run --rm --name $(CONTAINER_NAME) \
-		--env-file .env -p 7860:7860 \
-		$(DOCKER_IMAGE):$(TAG)
+stop:	## Stop the running container
+	docker stop $(CONTAINER_NAME)
+
+restart:	## Restart the container
+	@make stop || true
+	@make run
+
+clean: ## Remove container and image
+	docker stop $(CONTAINER_NAME) || true
+	docker rm $(CONTAINER_NAME) || true
+	docker rmi $(DOCKER_IMAGE):$(TAG) || true
+
+
+deep-clean: clean ## Clean everything including build cache
+	docker builder prune -f
 
 # =======================
 # 🧪 Testing Commands
@@ -94,7 +108,7 @@ docker-prod:	## Production run
 test: 	## Run all tests in the tests/ directory
 	uv run --isolated --with pytest pytest
 
-test-file: 	## Run specific test file  
+test-file: 	## Run specific test file
 	uv run --isolated --with pytest pytest tests/test_models.py
 
 test-func: 	## Run specific test function by name
@@ -121,7 +135,7 @@ open-cov: 	## Open HTML coverage report in browser
 check-secrets:		## Debug: Check secrets manually (also runs in pre-commit
 	gitleaks detect --source . --verbose
 
-audit:	## Audit dependencies for vulnerabilities  
+audit:	## Audit dependencies for vulnerabilities
 	uv run --with pip-audit pip-audit
 
 
@@ -132,7 +146,7 @@ audit:	## Audit dependencies for vulnerabilities
 help: ## Show this help message
 	@echo Available commands:
 	@echo.
-	@python -c "import re; lines=open('Makefile', encoding='utf-8').readlines(); targets=[re.match(r'^([a-zA-Z_-]+):.*?## (.*)$$',l) for l in lines]; [print(f'  make {m.group(1):<20} {m.group(2)}') for m in targets if m]"
+	@python3 -c "import re; lines=open('Makefile', encoding='utf-8').readlines(); targets=[re.match(r'^([a-zA-Z_-]+):.*?## (.*)$$',l) for l in lines]; [print(f'  make {m.group(1):<20} {m.group(2)}') for m in targets if m]"
 
 
 # =======================
@@ -140,8 +154,8 @@ help: ## Show this help message
 # =======================
 
 # Auto-generate PHONY targets (cross-platform)
-.PHONY: $(shell python -c "import re; print(' '.join(re.findall(r'^([a-zA-Z_-]+):\s*.*?##', open('Makefile', encoding='utf-8').read(), re.MULTILINE)))")
+.PHONY: $(shell python3 -c "import re; print(' '.join(re.findall(r'^([a-zA-Z_-]+):\s*.*?##', open('Makefile', encoding='utf-8').read(), re.MULTILINE)))")
 
 # Test the PHONY generation
 # test-phony:
-# 	@echo "$(shell python -c "import re; print(' '.join(sorted(set(re.findall(r'^([a-zA-Z0-9_-]+):', open('Makefile', encoding='utf-8').read(), re.MULTILINE)))))")"
+# 	@echo "$(shell python3 -c "import re; print(' '.join(sorted(set(re.findall(r'^([a-zA-Z0-9_-]+):', open('Makefile', encoding='utf-8').read(), re.MULTILINE)))))")"

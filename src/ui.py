@@ -59,11 +59,10 @@ def build_ui(css_path="assets/styles.css"):
                 """
                 gr.HTML(intro_html)
 
-                # Fix the missing quote in REPO_URL
-                learn_more_html = f"""
+                learn_more_html = """
                     <div id="learn-more-button">
-                        <a href="{REPO_URL}/blob/main/README.md"
-                           class="button-link" target="_blank">Learn More</a>
+                        <a href="/docs/"
+                           class="button-link">Documentation</a>
                     </div>
                     """
                 gr.HTML(learn_more_html)
@@ -171,6 +170,15 @@ def build_ui(css_path="assets/styles.css"):
                     </strong>
                 </p>
                 """
+            )
+
+            # Floating chat button
+            gr.HTML(
+                """
+                <a href="/docs/" class="floating-chat-btn" target="_blank">
+                    💬 Chat with AI Assistant
+                </a>
+            """
             )
 
         return ui

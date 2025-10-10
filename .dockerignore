@@ -29,9 +29,9 @@ coverage.xml
 nosetests.xml
 test-results.xml
 
-# Distribution and packaging 
+# Distribution and packaging
 dist/
-build/ 
+build/
 
 # IDE settings
 .vscode/
@@ -48,7 +48,6 @@ notebooks/
 *.ipynb_checkpoints/
 
 # Documentation
-docs/
 README.md
 CHANGELOG.md
 mkdocs.yml
@@ -61,7 +60,7 @@ tests/
 Makefile
 act.mk
 
-# Generated datasets  
+# Generated datasets
 output/
 
 # static files
@@ -73,3 +72,7 @@ ci/
 setup.env
 .gitlab-ci.yml
 gitlabci.mk
+
+# Docker
+.dockerignore
+Dockerfile

@@ -1,4 +1,29 @@
-## [0.1.0]
+## 🏷️ [0.2.0]
+
+### ✨ Added
+- Documentation support using Docsify accessible at `/docs/` endpoint
+- FastAPI integration to serve static documentation files
+- Custom FastAPI app wrapper to handle both Gradio UI and documentation
+- Redirect from `/docs` to `/docs/` for better URL handling
+- ChatBot widget integration for enhanced user interaction
+
+### 🔄 Changed
+- Migrated from `demo.launch()` to custom FastAPI app with `gr.mount_gradio_app()`
+- Moved FastAPI Swagger UI from `/docs` to `/api-docs` to avoid conflicts
+- Updated application architecture to support static file serving
+
+### ✅ Fixed
+- Resolved routing conflicts between Gradio and static documentation
+- Fixed double slash issue in root URL by using empty string for Gradio mount path
+- Corrected trailing slash handling for documentation endpoint
+
+### ⚙️ Technical
+- Updated to use Gradio 5.31.0's mounting API
+- Added `uvicorn` as runtime server
+- Documentation files now properly served from `/app/docs` in Docker container
+
+
+## 🏷️ [0.1.0]
 
 ### ✨ Added
 - Generate realistic synthetic datasets from natural language prompts
