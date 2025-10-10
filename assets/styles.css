@@ -11,7 +11,7 @@ html, body, #app, body > div, .gradio-container {
 }
 
 #app-container {
-    background-color: #1d3451 !important;  
+    background-color: #1d3451 !important;
     padding: 40px;
     border-radius: 12px;
     box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4);
@@ -27,7 +27,7 @@ html, body, #app, body > div, .gradio-container {
 #app-container strong {
     font-size: 16px;
     line-height: 1.6;
-    color: white !important; 
+    color: white !important;
 }
 
 #app-title {
@@ -54,7 +54,7 @@ html, body, #app, body > div, .gradio-container {
 
 #intro-text {
     font-size: 16px;
-    color: white !important; 
+    color: white !important;
     margin-top: 20px;
     line-height: 1.6;
 }
@@ -67,7 +67,7 @@ html, body, #app, body > div, .gradio-container {
 
 .button-link {
     background: linear-gradient(to left, #ff416c, #ff4b2b);
-    color: white !important; 
+    color: white !important;
     padding: 10px 20px;
     text-decoration: none;
     font-weight: bold;
@@ -100,7 +100,7 @@ html, body, #app, body > div, .gradio-container {
 
 .label-box {
     background-color: #1f2937;
-    color: white; 
+    color: white;
     padding: 4px 10px;
     border-radius: 8px;
     display: inline-block;
@@ -115,11 +115,11 @@ html, body, #app, body > div, .gradio-container {
     margin: 0 !important;
 }
 .row-spacer {
-    margin-top: 24px !important; 
+    margin-top: 24px !important;
 }
 
 .column-gap {
-  gap: 16px; 
+  gap: 16px;
 }
 
 textarea, input[type="text"] {
@@ -163,7 +163,7 @@ ul[role="listbox"] li[aria-selected="true"] {
 
 input[type="number"] {
     background-color: #374151;
-    color: white !important; 
+    color: white !important;
 }
 
 #business-problem-box {
@@ -181,7 +181,7 @@ input[type="number"] {
 
 #run-btn {
     background: linear-gradient(to left, #ff416c, #ff4b2b);
-    color: white !important; 
+    color: white !important;
     font-weight: bold;
     border: none;
     padding: 10px 20px;
@@ -235,3 +235,55 @@ input[type="number"] {
     text-align: center;
     font-size: 0.9em;
 }
+
+/* ==== Floating chat button for Gradio ==== */
+.floating-chat-btn {
+    position: fixed !important;
+    bottom: 30px !important;
+    right: 30px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: white !important;
+    padding: 1rem 1.75rem !important;
+    border-radius: 50px !important;
+    text-decoration: none !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.5) !important;
+    z-index: 9999 !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    white-space: nowrap !important;
+  }
+
+  .floating-chat-btn:hover {
+    transform: translateY(-3px) scale(1.02) !important;
+    box-shadow: 0 8px 24px rgba(255, 65, 108, 0.7) !important;
+    text-decoration: none !important;
+    color: white !important;
+  }
+
+  .floating-chat-btn:active {
+    transform: translateY(-1px) scale(0.98) !important;
+  }
+
+  /* Tablet and smaller desktop */
+  @media (max-width: 1024px) {
+    .floating-chat-btn {
+      bottom: 25px !important;
+      right: 25px !important;
+      font-size: 0.95rem !important;
+      padding: 0.875rem 1.5rem !important;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .floating-chat-btn {
+      bottom: 20px !important;
+      right: 20px !important;
+      font-size: 0.9rem !important;
+      padding: 0.875rem 1.25rem !important;
+    }
+  }

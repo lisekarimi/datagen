@@ -172,6 +172,15 @@ def build_ui(css_path="assets/styles.css"):
                 """
             )
 
+            # Floating chat button
+            gr.HTML(
+                """
+                <a href="/docs/" class="floating-chat-btn" target="_blank">
+                    💬 Chat with AI Assistant
+                </a>
+            """
+            )
+
         return ui
 
     except Exception as e:
