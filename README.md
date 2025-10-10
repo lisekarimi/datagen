@@ -1,3 +1,12 @@
+---
+title: DataGen
+emoji: 🧬
+colorFrom: indigo
+colorTo: pink
+sdk: docker
+short_description: AI-powered synthetic data generator
+---
+
 # 🧬 DataGen: AI-Powered Synthetic Data Generator
 
 Generate realistic synthetic datasets by simply describing what you need.
