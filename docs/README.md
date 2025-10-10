@@ -1,0 +1,1 @@
+DataGen is an AI-powered toolkit that generates realistic synthetic datasets in multiple formats, helping researchers, data scientists, and developers create clean, ready-to-use data for testing, prototyping, and experimentation.

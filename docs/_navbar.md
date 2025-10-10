@@ -1,0 +1,3 @@
+- [Home](/#/)
+- [Try It Live 🚀](https://datagen.lisekarimi.com/)
+- [LinkedIn](https://www.linkedin.com/in/lisekarimi/)
