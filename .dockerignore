@@ -63,8 +63,12 @@ act.mk
 # Generated datasets
 output/
 
-# static files
-assets/
+# Exclude images
+assets/*.png
+assets/*.jpg
+assets/*.jpeg
+assets/*.gif
+assets/*.svg
 
 # CI/CD local tools
 .gitlab-ci-local/
