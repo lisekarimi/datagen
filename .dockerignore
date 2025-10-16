@@ -80,3 +80,6 @@ gitlabci.mk
 # Docker
 .dockerignore
 Dockerfile
+
+# Alerts
+alerts-gcp/

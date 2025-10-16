@@ -73,3 +73,6 @@ output/
 # CI/CD local tools
 .gitlab-ci-local/
 setup.env
+
+# Alerts
+alerts-gcp/
