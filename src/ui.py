@@ -35,9 +35,48 @@ def build_ui(css_path="assets/styles.css"):
         css = ""
         logger.warning("⚠️ Failed to load CSS: %s", e)
 
+    # Custom meta tags for SEO and social sharing
+    custom_head = f"""
+    <!-- HTML Meta Tags -->
+    <title>🧬 {PROJECT_NAME_CAP} - AI-Powered Synthetic Dataset Generator</title>
+    <meta name="description" content="Generate realistic synthetic datasets using AI models (GPT & Claude). Perfect for testing, development, and AI training. Multiple formats: JSON, CSV, Parquet, Markdown.">
+    <meta name="keywords" content="synthetic data, dataset generator, AI, machine learning, GPT, Claude, data science, testing data, development data">
+    <meta name="author" content="Lise Karimi">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:url" content="https://datagen.lisekarimi.com">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="🧬 {PROJECT_NAME_CAP} - AI-Powered Synthetic Dataset Generator">
+    <meta property="og:description" content="Generate realistic synthetic datasets using AI models (GPT & Claude). Perfect for testing, development, and AI training. Multiple formats: JSON, CSV, Parquet, Markdown.">
+    <meta property="og:image" content="https://datagen.lisekarimi.com/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="DataGen - AI-Powered Synthetic Dataset Generator">
+    <meta property="og:site_name" content="DataGen">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="🧬 {PROJECT_NAME_CAP} - AI-Powered Synthetic Dataset Generator">
+    <meta name="twitter:description" content="Generate realistic synthetic datasets using AI models (GPT & Claude). Perfect for testing, development, and AI training.">
+    <meta name="twitter:image" content="https://datagen.lisekarimi.com/assets/og-image.png">
+    <meta name="twitter:image:alt" content="DataGen - AI-Powered Synthetic Dataset Generator">
+
+    <!-- Additional SEO Meta Tags -->
+    <meta name="theme-color" content="#6366f1">
+    <meta name="msapplication-TileColor" content="#6366f1">
+    <link rel="canonical" href="https://datagen.lisekarimi.com">
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧬</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧬</text></svg>">
+    """  # noqa: E501
+
     # Building the UI with error handling
     try:
-        with gr.Blocks(css=css, title=f"🧬{PROJECT_NAME_CAP}") as ui:
+        with gr.Blocks(css=css, head=custom_head, title=f"🧬{PROJECT_NAME_CAP}") as ui:
             with gr.Column(elem_id="app-container"):
                 gr.Markdown(f"<h1 id='app-title'>🏷️ {PROJECT_NAME_CAP} </h1>")
                 gr.Markdown(
