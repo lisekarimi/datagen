@@ -160,6 +160,22 @@ def build_ui(css_path="assets/styles.css"):
                     outputs=[file_download, run_btn, status_message],
                 )
 
+            # Explore More Projects section
+            explore_projects_html = """
+                <div id="explore-projects">
+                    <h3>🚀 Explore More Projects</h3>
+                    <p>Discover a comprehensive portfolio of AI/ML solutions.</p>
+                    <div id="explore-projects-button">
+                        <a href="https://lisekarimi.com"
+                           class="portfolio-link"
+                           target="_blank">
+                            View Full Portfolio
+                        </a>
+                    </div>
+                </div>
+            """
+            gr.HTML(explore_projects_html)
+
             # Bottom: version info
             gr.Markdown(
                 f"""
