@@ -1,3 +1,13 @@
+## 🏷️ [0.3.0]
+
+### ✨ Added
+- `docs/index.html` landing page for GitHub Pages
+
+### 🚀 Deployment
+- App deployed on Hugging Face Spaces for demo
+- Landing page and docs deployed on GitHub Pages
+
+
 ## 🏷️ [0.2.0]
 
 ### ✨ Added
