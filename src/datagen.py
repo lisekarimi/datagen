@@ -3,7 +3,7 @@
 import os
 from datetime import datetime
 from .prompts import build_user_prompt, system_message
-from .models import get_gpt_completion, get_claude_completion
+from .models import get_gpt_completion
 from .utils import execute_code_in_virtualenv
 from .constants import OUTPUT_DIR, logger
 
@@ -33,13 +33,7 @@ class DataGen:
             # Build the prompt to send to the selected LLM
             prompt = build_user_prompt(**input_data)
 
-            # Call the selected LLM based on the model parameter
-            if input_data["model"] == "GPT":
-                code = get_gpt_completion(prompt, system_message)
-            elif input_data["model"] == "Claude":
-                code = get_claude_completion(prompt, system_message)
-            else:
-                raise ValueError("Invalid model selected.")
+            code = get_gpt_completion(prompt, system_message)
 
             # Execute the generated code and return the output file path
             file_path = execute_code_in_virtualenv(code)

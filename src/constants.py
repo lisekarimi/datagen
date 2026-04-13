@@ -16,7 +16,6 @@ VERSION = pyproject["project"]["version"]
 
 # ==================== AI MODEL CONFIG ====================
 OPENAI_MODEL = "gpt-4o-mini"
-CLAUDE_MODEL = "claude-3-5-sonnet-20240620"
 
 # Other constants can go here
 OUTPUT_DIR = os.environ.get("OUTPUT_DIR", "output")

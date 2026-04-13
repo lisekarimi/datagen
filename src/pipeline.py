@@ -26,9 +26,7 @@ class DatasetPipeline:
         """Initialize the pipeline with a DataGen instance."""
         self.generator = DataGen()
 
-    def generate(
-        self, business_problem, dataset_type, output_format, num_samples, model
-    ):
+    def generate(self, business_problem, dataset_type, output_format, num_samples):
         """Generate synthetic dataset based on user inputs."""
         # Check if business problem is empty
         if not business_problem.strip():
@@ -50,7 +48,6 @@ class DatasetPipeline:
                 "dataset_type": dataset_type,
                 "output_format": output_format,
                 "num_samples": num_samples,
-                "model": model,
             }
 
             # Generate dataset file

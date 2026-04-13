@@ -119,15 +119,6 @@ def build_ui(css_path="assets/styles.css"):
 
                     with gr.Row(elem_classes="row-spacer column-gap"):
                         with gr.Column(scale=1):
-                            model = gr.Dropdown(
-                                ["GPT", "Claude"],
-                                value="GPT",
-                                label="🤖 Model",
-                                elem_classes=["label-box"],
-                                elem_id="custom-dropdown",
-                            )
-
-                        with gr.Column(scale=1):
                             num_samples = gr.Slider(
                                 minimum=10,
                                 maximum=1000,
@@ -155,7 +146,6 @@ def build_ui(css_path="assets/styles.css"):
                         dataset_type,
                         output_format,
                         num_samples,
-                        model,
                     ],
                     outputs=[file_download, run_btn, status_message],
                 )
@@ -186,16 +176,6 @@ def build_ui(css_path="assets/styles.css"):
                     </strong>
                 </p>
                 """
-            )
-
-            # Floating chat button
-            gr.HTML(
-                """
-                <a href="https://datagen.lisekarimi.com/docs" class="floating-chat-btn"
-                    target="_blank">
-                    📖 Read the Docs
-                </a>
-            """
             )
 
         return ui

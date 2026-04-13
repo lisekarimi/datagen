@@ -7,6 +7,9 @@
 - App deployed on Hugging Face Spaces for demo
 - Landing page and docs deployed on GitHub Pages
 
+### 🔄 Changed
+- Removed Claude model support — OpenAI only
+
 
 ## 🏷️ [0.2.0]
 
