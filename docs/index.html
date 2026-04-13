@@ -2,121 +2,440 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Datagen Docs</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Datagen Documentation">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Datagen — AI Synthetic Data Generator</title>
+  <meta name="description" content="Generate realistic synthetic datasets instantly with AI. CSV, JSON, Parquet, Markdown — powered by GPT and Claude.">
   <meta name="author" content="Lise Karimi" />
 
-  <!-- 💊 Emoji Favicon -->
+  <!-- Open Graph -->
+  <meta property="og:title" content="Datagen — AI Synthetic Data Generator" />
+  <meta property="og:description" content="Type what you need. Get clean, structured data in seconds." />
+  <meta property="og:type" content="website" />
+
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧬</text></svg>">
 
-  <!-- Light + Dark themes -->
-  <link id="theme-light" rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/docsify-themeable/dist/css/theme-simple.css">
-  <link id="theme-dark" rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/docsify-themeable/dist/css/theme-simple-dark.css" disabled>
-
   <style>
-    #themeToggle {
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent: #7c3aed;
+      --accent2: #2563eb;
+      --glow: rgba(124, 58, 237, 0.45);
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --border: rgba(255, 255, 255, 0.1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: #050714;
+      color: #e2e8f0;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Animated gradient background ── */
+    .bg {
       position: fixed;
-      right: 16px;
-      top: 58px;
-      z-index: 9999;
-      padding: 6px 10px;
-      border-radius: 20px;
-      border: 1px solid #ddd;
-      background: #fff;
-      cursor: pointer;
-      font-size: 14px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(124,58,237,0.25) 0%, transparent 60%),
+        radial-gradient(ellipse 70% 50% at 80% 80%, rgba(37,99,235,0.2) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 40% at 60% 30%, rgba(16,185,129,0.12) 0%, transparent 50%),
+        #050714;
+      animation: bgShift 12s ease-in-out infinite alternate;
     }
-    #themeToggle:hover { opacity: 0.85; }
-    body[data-theme="dark"] #themeToggle {
-      background: #333;
-      border-color: #555;
+
+    @keyframes bgShift {
+      0%   { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(30deg); }
+    }
+
+    /* ── Floating particles ── */
+    .particles {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(124,58,237,0.6);
+      animation: float linear infinite;
+      filter: blur(1px);
+    }
+
+    @keyframes float {
+      0%   { transform: translateY(110vh) translateX(0); opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 0.6; }
+      100% { transform: translateY(-10vh) translateX(var(--drift)); opacity: 0; }
+    }
+
+    /* ── Layout ── */
+    .page {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2.5rem;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      background: rgba(5,7,20,0.5);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
       color: #fff;
+      text-decoration: none;
     }
-    @media (max-width: 768px){
-      #themeToggle { right: 12px; top: 52px; }
+    .logo-icon { font-size: 1.5rem; }
+
+    .header-links {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    .header-links a {
+      color: rgba(226,232,240,0.7);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .header-links a:hover { color: #fff; }
+
+    .btn-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 1.1rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff !important;
+      box-shadow: 0 2px 12px var(--glow);
+      transition: transform 0.2s, box-shadow 0.2s;
+      white-space: nowrap;
+    }
+    .btn-nav:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px var(--glow);
+    }
+
+    /* ── Hero ── */
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 5rem 2rem 4rem;
+      gap: 2rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 99px;
+      border: 1px solid rgba(124,58,237,0.5);
+      background: rgba(124,58,237,0.12);
+      font-size: 0.8rem;
+      color: #a78bfa;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-weight: 600;
+      animation: fadeSlideDown 0.6s ease both;
+    }
+
+    .hero-title {
+      font-size: clamp(2.8rem, 8vw, 5.5rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      animation: fadeSlideDown 0.7s 0.1s ease both;
+    }
+
+    .hero-title .gradient-text {
+      background: linear-gradient(135deg, #a78bfa 0%, #60a5fa 50%, #34d399 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: rgba(226,232,240,0.65);
+      max-width: 520px;
+      line-height: 1.65;
+      animation: fadeSlideDown 0.7s 0.2s ease both;
+    }
+
+    /* ── CTA Buttons ── */
+    .cta-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeSlideDown 0.7s 0.3s ease both;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      box-shadow: 0 4px 24px var(--glow);
+    }
+    .btn-primary:hover {
+      box-shadow: 0 8px 32px var(--glow);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.07);
+      color: #e2e8f0;
+      border: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+    }
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    /* ── Features grid ── */
+    .features {
+      padding: 1rem 2rem 5rem;
+      max-width: 900px;
+      margin: 0 auto;
+      width: 100%;
+      animation: fadeSlideDown 0.8s 0.4s ease both;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+      backdrop-filter: blur(10px);
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .feature-card:hover {
+      border-color: rgba(124,58,237,0.5);
+      transform: translateY(-3px);
+    }
+
+    .feature-icon {
+      font-size: 1.6rem;
+      margin-bottom: 0.6rem;
+    }
+    .feature-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #f1f5f9;
+      margin-bottom: 0.3rem;
+    }
+    .feature-desc {
+      font-size: 0.82rem;
+      color: rgba(226,232,240,0.55);
+      line-height: 1.5;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 1.5rem 2rem;
+      border-top: 1px solid var(--border);
+      color: rgba(226,232,240,0.35);
+      font-size: 0.82rem;
+      backdrop-filter: blur(8px);
+      background: rgba(5,7,20,0.4);
+    }
+    footer a { color: rgba(167,139,250,0.7); text-decoration: none; }
+    footer a:hover { color: #a78bfa; }
+
+    /* ── Animations ── */
+    @keyframes fadeSlideDown {
+      from { opacity: 0; transform: translateY(-18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      header { padding: 0.9rem 1rem; }
+      .header-links { gap: 0.5rem; }
+      .header-links .hide-mobile { display: none; }
+      .hero { padding: 2.5rem 1rem 2rem; gap: 1.5rem; }
+      .hero-subtitle { font-size: 0.95rem; }
+      .btn { padding: 0.75rem 1.25rem; font-size: 0.92rem; }
+      .cta-group { gap: 0.75rem; }
+      .features { padding: 0.5rem 1rem 3rem; }
+      .features-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+      .feature-card { padding: 1rem 1.25rem; }
+    }
+
+    @media (min-width: 641px) and (max-width: 900px) {
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
 <body>
-  <div id="app"></div>
-  <button id="themeToggle" title="Toggle theme">🌙</button>
+
+  <!-- Background layers -->
+  <div class="bg"></div>
+  <div class="particles" id="particles"></div>
+
+  <div class="page">
+    <!-- Header -->
+    <header>
+      <a class="logo" href="#">
+        <span class="logo-icon">🧬</span>
+        Datagen
+      </a>
+      <nav class="header-links">
+        <a class="hide-mobile" href="https://github.com/lisekarimi/datagen" target="_blank" rel="noopener">GitHub</a>
+        <a class="hide-mobile" href="https://www.linkedin.com/in/lisekarimi/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn-nav" href="https://huggingface.co/spaces/lisekarimi/datagen" target="_blank" rel="noopener">
+          🚀 Try App
+        </a>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <main class="hero">
+      <span class="badge">✦ AI-Powered &nbsp;·&nbsp; Open Source</span>
+
+      <h1 class="hero-title">
+        Generate Data<br>
+        <span class="gradient-text">Instantly with AI</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Describe the dataset you need — Datagen turns your words into clean,
+        structured data in CSV, JSON, Parquet, or Markdown. Powered by GPT and Claude.
+      </p>
+
+      <div class="cta-group">
+        <a class="btn btn-primary"
+           href="https://huggingface.co/spaces/lisekarimi/datagen"
+           target="_blank" rel="noopener">
+          🚀 Try the App
+        </a>
+        <a class="btn btn-secondary" href="./docs/">
+          📖 Read the Docs
+        </a>
+      </div>
+    </main>
+
+    <!-- Feature cards -->
+    <section class="features" aria-label="Key features">
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">💬</div>
+          <div class="feature-title">Natural Language</div>
+          <div class="feature-desc">Just describe what you need — no schema required.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <div class="feature-title">Multiple Formats</div>
+          <div class="feature-desc">CSV, JSON, Parquet, and Markdown out of the box.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🤖</div>
+          <div class="feature-title">GPT &amp; Claude</div>
+          <div class="feature-desc">Choose your AI model for every generation.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <div class="feature-title">Instant Download</div>
+          <div class="feature-desc">Ready-to-use files downloaded in seconds.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      Built by <a href="https://www.linkedin.com/in/lisekarimi/" target="_blank" rel="noopener">Lise Karimi</a>
+      &nbsp;·&nbsp;
+      <a href="https://github.com/lisekarimi/datagen" target="_blank" rel="noopener">View on GitHub</a>
+    </footer>
+  </div>
 
   <script>
-    window.$docsify = {
-      name: 'Datagen Docs',
-      repo: 'https://github.com/lisekarimi/datagen',
-      loadSidebar: true,
-      loadNavbar: true,
-      subMaxLevel: 2,
-      search: {
-        maxAge: 86400000,
-        paths: 'auto',
-        placeholder: '🔍 Search',
-        noData: 'No results found!',
-        depth: 6,
-        hideOtherSidebarContent: false,
-      },
-      pagination: {
-        previousText: 'Previous',
-        nextText: 'Next',
-        crossChapter: true,
-        crossChapterText: true,
-      },
-      copyCode: {
-        buttonText: 'Copy',
-        errorText: 'Error',
-        successText: 'Copied!'
-      },
-      plugins: [
-        function (hook) {
-          hook.doneEach(function () {
-            document.title = 'Datagen Docs';
-          });
-        }
-      ]
-    };
-
-    // Theme toggle
+    // Generate floating particles
     (function () {
-      const KEY = 'docsify-theme';
-      const light = document.getElementById('theme-light');
-      const dark  = document.getElementById('theme-dark');
-      const saved = localStorage.getItem(KEY);
-      const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
-      const toggleBtn = document.getElementById('themeToggle');
-
-      function apply(theme){
-        dark.disabled  = theme !== 'dark';
-        light.disabled = theme === 'dark';
-        localStorage.setItem(KEY, theme);
-        toggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
-        document.body.setAttribute('data-theme', theme);
+      const container = document.getElementById('particles');
+      const count = 28;
+      for (let i = 0; i < count; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const size = Math.random() * 4 + 2;
+        const left = Math.random() * 100;
+        const duration = Math.random() * 18 + 12;
+        const delay = Math.random() * 15;
+        const drift = (Math.random() - 0.5) * 120;
+        const colors = [
+          'rgba(124,58,237,0.7)',
+          'rgba(37,99,235,0.6)',
+          'rgba(16,185,129,0.5)',
+          'rgba(167,139,250,0.6)',
+        ];
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        p.style.cssText = `
+          width: ${size}px;
+          height: ${size}px;
+          left: ${left}%;
+          background: ${color};
+          animation-duration: ${duration}s;
+          animation-delay: -${delay}s;
+          --drift: ${drift}px;
+        `;
+        container.appendChild(p);
       }
-
-      apply(saved || (prefersDark ? 'dark' : 'light'));
-      toggleBtn.onclick = () => apply(dark.disabled ? 'dark' : 'light');
     })();
   </script>
-
-  <!-- Docsify core + plugins -->
-
-  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code/dist/docsify-copy-code.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
-  <!-- Language highlighting -->
-  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-python.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-yaml.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-json.min.js"></script>
-  <!-- PageBotAI Chatbot - Start -->
-  <script src="static/js/chatbot.js"></script>
-  <!-- PageBotAI Chatbot - End -->
 </body>
 </html>

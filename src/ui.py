@@ -193,7 +193,7 @@ def build_ui(css_path="assets/styles.css"):
                 """
                 <a href="https://datagen.lisekarimi.com/docs" class="floating-chat-btn"
                     target="_blank">
-                    💬 Chat with AI Assistant
+                    📖 Read the Docs
                 </a>
             """
             )

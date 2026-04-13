@@ -35,7 +35,7 @@ activate:	## Activate the virtual environment
 # 🪝 Hooks
 # =======================
 
-install-hooks:	## Install pre-commit hooks
+hooks:	## Install pre-commit hooks
 	uvx pre-commit install
 	uvx pre-commit install --hook-type commit-msg
 

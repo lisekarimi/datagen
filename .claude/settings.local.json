@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p /mnt/d/workspace/pro/04_projects/portfolio/datagen/docs/docs/static/js)",
+      "Bash(cp /mnt/d/workspace/pro/04_projects/portfolio/datagen/docs/*.md /mnt/d/workspace/pro/04_projects/portfolio/datagen/docs/docs/)",
+      "Bash(cp /mnt/d/workspace/pro/04_projects/portfolio/datagen/docs/static/js/chatbot.js /mnt/d/workspace/pro/04_projects/portfolio/datagen/docs/docs/static/js/)"
+    ]
+  }
+}
