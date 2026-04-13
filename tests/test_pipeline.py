@@ -57,7 +57,7 @@ class TestDatasetPipeline:
 
     def test_empty_business_problem(self):
         """Test pipeline with empty business problem."""
-        generator = self.pipeline.generate("", "Tabular", "JSON", 10, "GPT")
+        generator = self.pipeline.generate("", "Tabular", "JSON", 10)
         result = next(generator)
 
         assert "❌ Please enter a business problem" in result[2]
@@ -66,7 +66,7 @@ class TestDatasetPipeline:
 
     def test_whitespace_only_business_problem(self):
         """Test pipeline with whitespace-only business problem."""
-        generator = self.pipeline.generate("   ", "Tabular", "JSON", 10, "GPT")
+        generator = self.pipeline.generate("   ", "Tabular", "JSON", 10)
         result = next(generator)
 
         assert "❌ Please enter a business problem" in result[2]
@@ -83,7 +83,7 @@ class TestDatasetPipeline:
         mock_exists.return_value = True
         mock_timer.return_value = MagicMock()
 
-        generator = self.pipeline.generate("Test problem", "Tabular", "CSV", 50, "GPT")
+        generator = self.pipeline.generate("Test problem", "Tabular", "CSV", 50)
 
         # First yield should be loading message
         loading_result = next(generator)
@@ -105,7 +105,7 @@ class TestDatasetPipeline:
         mock_generator.generate_dataset.side_effect = Exception("Generation failed")
         self.pipeline.generator = mock_generator
 
-        generator = self.pipeline.generate("Test problem", "Tabular", "JSON", 10, "GPT")
+        generator = self.pipeline.generate("Test problem", "Tabular", "JSON", 10)
 
         # Skip loading message
         next(generator)
@@ -126,9 +126,7 @@ class TestDatasetPipeline:
 
         mock_exists.return_value = False
 
-        generator = self.pipeline.generate(
-            "Test problem", "Tabular", "CSV", 25, "Claude"
-        )
+        generator = self.pipeline.generate("Test problem", "Tabular", "CSV", 25)
 
         # Skip loading message
         next(generator)
@@ -151,9 +149,7 @@ class TestDatasetPipeline:
         mock_exists.return_value = True
         mock_timer.return_value = MagicMock()
 
-        generator = self.pipeline.generate(
-            "Test problem", "Text", "JSON", 100, "Claude"
-        )
+        generator = self.pipeline.generate("Test problem", "Text", "JSON", 100)
 
         # Skip loading message
         next(generator)
@@ -166,7 +162,6 @@ class TestDatasetPipeline:
             "dataset_type": "Text",
             "output_format": "JSON",
             "num_samples": 100,
-            "model": "Claude",
         }
         mock_generator.generate_dataset.assert_called_once_with(**expected_params)
 
@@ -177,7 +172,7 @@ class TestDatasetPipeline:
         mock_generator.generate_dataset.return_value = None
         self.pipeline.generator = mock_generator
 
-        generator = self.pipeline.generate("Test problem", "Tabular", "JSON", 10, "GPT")
+        generator = self.pipeline.generate("Test problem", "Tabular", "JSON", 10)
 
         # Skip loading message
         next(generator)

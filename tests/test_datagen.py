@@ -61,7 +61,6 @@ class TestDataGen:
             "dataset_type": "Tabular",
             "output_format": "csv",
             "num_samples": 10,
-            "model": "GPT",
         }
 
         result = self.datagen.generate_dataset(**input_data)
@@ -77,50 +76,6 @@ class TestDataGen:
         called_args = mock_prompt.call_args[1]
         assert called_args["file_path"] == self.temp_dir
 
-    @patch("src.datagen.execute_code_in_virtualenv")
-    @patch("src.datagen.get_claude_completion")
-    @patch("src.datagen.build_user_prompt")
-    def test_generate_dataset_claude(self, mock_prompt, mock_claude, mock_execute):
-        """Test dataset generation using Claude model."""
-        # Setup mocks
-        mock_prompt.return_value = "test prompt"
-        mock_claude.return_value = "test code"
-        mock_execute.return_value = "test_file.json"
-
-        input_data = {
-            "business_problem": "Test problem",
-            "dataset_type": "Text",
-            "output_format": "json",
-            "num_samples": 50,
-            "model": "Claude",
-        }
-
-        result = self.datagen.generate_dataset(**input_data)
-
-        # Verify calls
-        mock_prompt.assert_called_once()
-        # Check that Claude was called with prompt and system_message
-        assert mock_claude.call_args[0][0] == "test prompt"  # First arg is the prompt
-        assert "synthetic datasets" in mock_claude.call_args[0][1]
-        mock_execute.assert_called_once_with("test code")
-        assert result == "test_file.json"
-
-    @patch("src.datagen.build_user_prompt")
-    def test_generate_dataset_invalid_model(self, mock_prompt):
-        """Test that invalid model raises ValueError."""
-        mock_prompt.return_value = "test prompt"
-
-        input_data = {
-            "business_problem": "Test problem",
-            "dataset_type": "Tabular",
-            "output_format": "csv",
-            "num_samples": 10,
-            "model": "INVALID_MODEL",
-        }
-
-        with pytest.raises(ValueError, match="Invalid model selected"):
-            self.datagen.generate_dataset(**input_data)
-
     @patch("src.datagen.logger")
     @patch("src.datagen.build_user_prompt")
     def test_generate_dataset_error_handling(self, mock_prompt, mock_logger):
@@ -133,7 +88,6 @@ class TestDataGen:
             "dataset_type": "Tabular",
             "output_format": "csv",
             "num_samples": 10,
-            "model": "GPT",
         }
 
         with pytest.raises(Exception, match="Test error"):
@@ -160,7 +114,6 @@ class TestDataGen:
             "dataset_type": "Tabular",
             "output_format": "csv",
             "num_samples": 10,
-            "model": "GPT",
         }
 
         original_keys = set(input_data.keys())

@@ -76,3 +76,6 @@ setup.env
 
 # Alerts
 alerts-gcp/
+
+# Claude Code
+.claude/
