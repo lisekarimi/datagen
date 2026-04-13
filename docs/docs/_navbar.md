@@ -1,3 +1,3 @@
 - [Try App 🚀](https://huggingface.co/spaces/lisekarimi/datagen)
-- [Home 🏠](../)
+- [Home 🏠](https://datagen.lisekarimi.com/)
 - [LinkedIn](https://www.linkedin.com/in/lisekarimi/)
